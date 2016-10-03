@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Matching Game</title>
+    	<style type="text/css">
+
+			img{
+				position:absolute
+			}
+			div{
+				position:absolute; 
+				width:500px; 
+				height:500px
+			}
+			#rightSide {
+			 	left: 500px; 
+            	border-left: 1px solid black 
+            }
+  		</style>
+  	</head>
+  
+	<body onload="generateFaces()">
+		<h1>Matching Game</h1>
+		<p>Click on the extra smiling face on the left</p>
+		<div id="leftSide">
+		</div>
+		<div id="rightSide">
+		</div>
+		<script type="text/javascript">
+			var numberOfFaces = 5;
+			var theLeftSide = document.getElementById("leftSide");
+			var theRightSide = document.getElementById("rightSide");
+			var theBody = document.getElementsByTagName("body")[0];
+			/**
+				Creates 5 smiling faces that are cloned to the right side and then removes one smile face on the right side 
+				The remaing face is the one that recieves an onclick funcion that multiplies the quantitie of smile faces
+			*/
+			function generateFaces() {
+				for (var i = 0; i < numberOfFaces; i++) {
+					var newItem = document.createElement("img");
+					//the new.src didnt work on my version of the chrome so I used the setAttrbute that worked fine
+					newItem.setAttribute("src", "http://home.cse.ust.hk/~rossiter/mooc/matching_game/smile.png");
+					var randomTop = Math.floor(Math.random() * 400) + 1;
+					var randomLeft = Math.floor(Math.random() * 400) + 1;
+					newItem.setAttribute("style", "top:"+randomTop + "px; left:"+randomLeft+"px;");
+					theLeftSide.appendChild(newItem);
+				}
+				leftSideImages = theLeftSide.cloneNode(true);
+				leftSideImages.removeChild(leftSideImages.lastChild);
+			    theRightSide.appendChild(leftSideImages);
+
+			    theLeftSide.lastChild.onclick = function nextLevel(event){ 
+												event.stopPropagation();
+       											numberOfFaces += 5;
+       											while(theLeftSide.firstChild){
+													theLeftSide.removeChild(theLeftSide.firstChild);
+												}
+												while(theRightSide.firstChild){
+													theRightSide.removeChild(theRightSide.firstChild);
+												}
+       											generateFaces();};
+				theBody.onclick = function gameOver() {alert("Game Over!");
+   								theBody.onclick = null;
+   								theLeftSide.lastChild.onclick = null; }; 
+
+			}
+
+			
+			
+
+
+		</script>
+
+	</body>
+</html>
+
+

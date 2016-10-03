@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Color Guessing Game</title>
+  </head>
+
+<body onload="doGame()">
+
+    <script type="text/javascript" >
+    var colors=["blue", "cyan", "gold", "gray", "green", "magenta", "orange", "red", "white", "yellow"];
+    var finished = false;
+    var guess_input;
+    var target_index;
+
+    function doGame(){
+      target_index = Math.random() * colors.length;
+      console.log("Index of the color random"+target_index);
+      //around
+      target_index = Math.floor(target_index);
+      console.log("Index of the color random with math floor"+target_index);
+      alert("The color is: " + colors[target_index]);
+      while(!finished)  {
+          guess_input = prompt("I am thinking of one of these colors:\n\n" + colors.join(", ")+"\n\n"+"What color am I thinking of?");
+          console.log(guess_input);
+          finished = check_guess(guess_input);
+        }
+    }
+
+    function check_guess(){
+      console.log("Color find "+colors.indexOf(guess_input));
+      if(colors.indexOf(guess_input) == target_index){
+        alert("Congratulation! You have guessed the color!");
+        return true;
+      }
+      return false;
+    }
+    </script>
+</body>
+</html>
